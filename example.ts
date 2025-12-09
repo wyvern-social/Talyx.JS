@@ -16,6 +16,7 @@ console.log("=== Example Lookups===")
 console.log(`greeting: ${localeInstance.Get("greeting")}`)
 console.log(`welcome_message: ${localeInstance.Get("welcome_message", new Map().set("username", "kagaries"))}`)
 console.log(`apples (2): ${localeInstance.Get("apples", new Map().set("count", "2"))}`)
+//console.log(`status_message: ${localeInstance.Get("status_message", new Map().set("count", "2"))}`)
 
 console.log()
 

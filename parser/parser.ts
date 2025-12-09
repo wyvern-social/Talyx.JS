@@ -99,12 +99,12 @@ export default class Parser {
               const regex = /^\[([^\]]+)\]\s*(.+)$/;
               const m = regex.exec(l.trim());
 
-              if (m !== null)
+              if (m !== null) {
                 msg.Choices.set(m[1].trim(), this.stripQuotes(m[2].trim()));
-              else if (l.trim().startsWith("*[other]"))
+              } else if (l.trim().startsWith("*[other]"))
                 msg.Choices.set(
                   "other",
-                  this.stripQuotes(l.trim().substring("*[other]".length)).trim()
+                  this.stripQuotes(l.trim().substring("*[other]".length + 1)).trim()
                 );
             }
             result.set(fullKey, msg);
@@ -171,7 +171,7 @@ export default class Parser {
           blockLines = [];
           blockLines.push(value);
 
-          if (value.includes("{")) {
+          if (value.includes("}")) {
             const msg = new Message(null, true, null, false, null, false);
 
             for (const rawLine of blockLines) {
@@ -183,11 +183,11 @@ export default class Parser {
                 msg.Choices.set(
                   "other",
                   this.stripQuotes(
-                    rawLine.trim().substring("*[other]".length).trim()
+                    rawLine.trim().substring("*[other]".length + 1).trim()
                   )
                 );
             }
-
+            
             result.set(fullKey, msg);
             inChoiceBlock = false;
             blockLines = [];
@@ -207,6 +207,7 @@ export default class Parser {
             );
 
             inArrayBlock = false;
+            log(result.get(fullKey))
             blockLines = [];
           }
           continue;
@@ -252,10 +253,11 @@ export default class Parser {
   }
 
   stripQuotes(value: string): string {
-    if (value.startsWith('"') && value.endsWith('"'))
-      return value.substring(1, value.length - 1);
-    return value;
+  if (value.startsWith('"') && value.endsWith('"')) {
+    return value.substring(1, value.length - 1);
   }
+  return value;
+}
 
   buildFullKey(ns: string | undefined, key: string): string {
     if (ns === undefined || ns.length === 0) {

@@ -207,7 +207,6 @@ export default class Parser {
             );
 
             inArrayBlock = false;
-            log(result.get(fullKey))
             blockLines = [];
           }
           continue;

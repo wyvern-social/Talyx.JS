@@ -13,7 +13,7 @@ Welcome to **Talyx**, the lightweight i18n library for managing localized messag
 - Load multiple files per language; they merge automatically
 - Fully community-extensible
 
-Check out the guide for usage examples and file format details when added.
+Check out the [Quick Start](https://talyx.wyvern.gg/user-guide/quick-start/) guide for usage examples and file format details.
 
 ## Documentation
-- Coming Soon!
+- [Quick Start](https://talyx.wyvern.gg/user-guide/quick-start/) - Installation, basic usage, and file format examples

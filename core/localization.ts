@@ -1,7 +1,7 @@
 import { log, warn } from "console";
-import Parser from "/Users/archervanhorn/talyxjs/parser/parser.ts";
-import Metadata from "/Users/archervanhorn/talyxjs/parser/metadata.ts";
-import Message from "/Users/archervanhorn/talyxjs/parser/message.ts";
+import Parser from "../parser/parser.ts";
+import Metadata from "../parser/metadata.ts";
+import Message from "../parser/message.ts";
 
 export default class Localization {
   constructor() {}

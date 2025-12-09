@@ -1,6 +1,6 @@
 import fs from "fs";
-import Metadata from "/Users/archervanhorn/talyxjs/parser/metadata.ts";
-import Message from "/Users/archervanhorn/talyxjs/parser/message.ts";
+import Metadata from "./metadata.ts";
+import Message from "./message.ts";
 import { log, warn } from "console";
 
 export default class Parser {

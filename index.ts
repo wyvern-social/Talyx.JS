@@ -1,4 +1,4 @@
-import Localization from "/Users/archervanhorn/talyxjs/core/localization.ts";
+import Localization from "./core/localization.ts";
 
 const localeInstance = new Localization();
 

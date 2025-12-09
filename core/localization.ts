@@ -50,7 +50,7 @@ export default class Localization {
     if (message.IsPlural && variables != null && variables.has("count")) {
       var countVar = variables.get("count");
 
-      if (countVar === undefined) {
+      if (countVar === null) {
         warn("Message is plural but count wasn't found.");
         return `!${key}!`;
       }
@@ -76,12 +76,16 @@ export default class Localization {
         return `!${key}!`;
       }
 
-      if (typeof countVar != "string") {
-        warn("Count variable isn't of type string");
-        return `!${key}!`;
-      }
+      var count: number;
 
-      var count = parseInt(countVar);
+      if (typeof countVar == "number") {
+        count = countVar
+      } else if (typeof countVar == "string") {
+        count = parseInt(countVar);
+      } else {
+        warn("Unrecongized count type.")
+        return `!${key}!`
+      }
 
       value =
         count == 1 && message.Choices.has("one")
@@ -158,11 +162,7 @@ export default class Localization {
       return;
     }
 
-    for (const key in dict) {
-      if (Object.hasOwnProperty.call(dict, key)) {
-        yield key;
-      }
-    }
+    yield *dict.keys()
   }
 
   loadedLanguages() {

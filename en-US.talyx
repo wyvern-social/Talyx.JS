@@ -5,12 +5,12 @@
 }
 
 # Simple messages
-greeting = "Hello"
-farewell = "Goodbye"
+greeting = "Hello!"
+farewell = "Goodbye!"
 welcome_message = "Welcome, {username}!"
 
 # plural messages
 apples = plural(count) {
-    [one] "You have 1 apple"
-    *[other] "You have {count} apples"
+    one: "You have 1 apple."
+    other: "You have {count} apples."
 }

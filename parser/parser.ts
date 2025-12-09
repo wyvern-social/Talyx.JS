@@ -10,7 +10,7 @@ export default class Parser {
   }
 
   parseFile(path: string): Map<string, Message> {
-    var result = new Map();
+    var result = new Map<string, Message>();
     let content: string;
 
     try {
@@ -32,8 +32,8 @@ export default class Parser {
 
     var blockLines: string[] = [];
 
-    for (const rawLine of lines) {
-      const line: string = rawLine.trim();
+    for (let i = 0; i < lines.length; i++) {
+      const line: string = lines[i].trim();
 
       if (line.startsWith("#") || line.length === 0 || line === null) {
         continue;
@@ -82,8 +82,8 @@ export default class Parser {
             for (const l of blockLines) {
               if (l.startsWith("}") || l.startsWith("plural")) continue;
 
-              const regex = /^(\w+):\s*""([^""]+)""$/;
-              const m = regex.exec(l.trim());
+              const regex = /^(\w+):\s*([^\r\n]+)$/;
+              let m = l.trim().match(regex);
 
               if (m !== null) {
                 msg.Choices.set(m[1], m[2]);
@@ -96,7 +96,7 @@ export default class Parser {
             var msg = new Message(null, true, null, false, null, false);
 
             for (const l of blockLines) {
-              const regex = /^(\w+):\s*""([^""]+)""$/;
+              const regex = /^\[([^\]]+)\]\s*(.+)$/;
               const m = regex.exec(l.trim());
 
               if (m !== null)
@@ -107,7 +107,6 @@ export default class Parser {
                   this.stripQuotes(l.trim().substring("*[other]".length)).trim()
                 );
             }
-
             result.set(fullKey, msg);
             inChoiceBlock = false;
           } else if (inArrayBlock) {
@@ -119,9 +118,10 @@ export default class Parser {
           }
           blockLines = [];
         }
+        
         continue;
       }
-
+      
       const match = /^(.+?)\s*=\s*(.+)$/.exec(line);
 
       if (match !== null) {
@@ -142,21 +142,25 @@ export default class Parser {
           inPluralBlock = true;
           blockLines = [];
           blockLines.push(value);
+
           if (line.includes("}")) {
             const msg = new Message(null, false, null, true, null, false);
 
-            for (let rawLine of blockLines) {
+            for (let l of blockLines) {
+                /*
               if (rawLine.startsWith("}") || rawLine.startsWith("plural")) {
                 continue;
               }
-
-              const m = /^(\w+):\s*""([^""]+)""$/.exec(rawLine.trim());
-
-              if (m !== null) msg.Choices.set(m[1], m[2]);
+                */
+              const m = /^(\w+):\s*""([^""]+)""$/.exec(line.trim());
+            //log(m)
+              if (m !== null) {
+                msg.Choices.set(m[1], m[2]);
+              }
             }
 
-            result.set(fullKey, msg);
             inPluralBlock = false;
+            result.set(fullKey, msg);
             blockLines = [];
           }
           continue;

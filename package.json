@@ -1,0 +1,19 @@
+{
+  "name": "talyxjs",
+  "version": "1.0.0",
+  "description": "Testing",
+  "license": "MIT",
+  "author": "Wyvern",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test",
+    "dev": "node index.ts"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}

@@ -1,0 +1,16 @@
+@meta {
+    locale       = "en-US"
+    plural_rules = "cardinal"
+    direction    = "ltr"
+}
+
+# Simple messages
+greeting = "Hello"
+farewell = "Goodbye"
+welcome_message = "Welcome, {username}!"
+
+# plural messages
+apples = plural(count) {
+    [one] "You have 1 apple"
+    *[other] "You have {count} apples"
+}
